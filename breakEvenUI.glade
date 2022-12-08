@@ -2,24 +2,29 @@
 <interface>
   <requires lib="gtk+" version="2.24"/>
   <!-- interface-naming-policy project-wide -->
-  <object class="GtkWindow" id="window1">
+  <object class="GtkWindow" id="break_window">
     <property name="width_request">500</property>
     <property name="height_request">400</property>
     <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Loan app</property>
+    <property name="title" translatable="yes">Break even app</property>
     <property name="resizable">False</property>
     <property name="window_position">center</property>
     <child>
       <object class="GtkTable" id="table1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="n_rows">10</property>
+        <property name="n_rows">8</property>
         <property name="n_columns">2</property>
         <child>
           <object class="GtkLabel" id="label1">
+            <property name="width_request">0</property>
+            <property name="height_request">0</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Loan Calculator</property>
+            <property name="label" translatable="yes">Break Even Point Calculator</property>
+            <attributes>
+              <attribute name="size" value="20000"/>
+            </attributes>
           </object>
           <packing>
             <property name="right_attach">2</property>
@@ -29,7 +34,7 @@
           <object class="GtkLabel" id="label2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Loan Amount</property>
+            <property name="label" translatable="yes">Total Fixed Costs</property>
           </object>
           <packing>
             <property name="top_attach">1</property>
@@ -40,7 +45,7 @@
           <object class="GtkLabel" id="label3">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Interest Rate</property>
+            <property name="label" translatable="yes">Costs per Unit</property>
           </object>
           <packing>
             <property name="top_attach">2</property>
@@ -51,7 +56,7 @@
           <object class="GtkLabel" id="label4">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Monthly Payment</property>
+            <property name="label" translatable="yes">Sale Price per Unit</property>
           </object>
           <packing>
             <property name="top_attach">3</property>
@@ -59,7 +64,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="button1">
+          <object class="GtkButton" id="cal_break_btn">
             <property name="label" translatable="yes">Calculate</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -67,12 +72,12 @@
           </object>
           <packing>
             <property name="right_attach">2</property>
-            <property name="top_attach">9</property>
-            <property name="bottom_attach">10</property>
+            <property name="top_attach">7</property>
+            <property name="bottom_attach">8</property>
           </packing>
         </child>
         <child>
-          <object class="GtkEntry" id="entry1">
+          <object class="GtkEntry" id="totalB_input">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="invisible_char">●</property>
@@ -86,10 +91,11 @@
             <property name="right_attach">2</property>
             <property name="top_attach">1</property>
             <property name="bottom_attach">2</property>
+            <property name="x_padding">30</property>
           </packing>
         </child>
         <child>
-          <object class="GtkEntry" id="entry2">
+          <object class="GtkEntry" id="costB_input">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="invisible_char">●</property>
@@ -103,10 +109,11 @@
             <property name="right_attach">2</property>
             <property name="top_attach">2</property>
             <property name="bottom_attach">3</property>
+            <property name="x_padding">30</property>
           </packing>
         </child>
         <child>
-          <object class="GtkEntry" id="entry3">
+          <object class="GtkEntry" id="priceB_input">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="invisible_char">●</property>
@@ -120,88 +127,72 @@
             <property name="right_attach">2</property>
             <property name="top_attach">3</property>
             <property name="bottom_attach">4</property>
+            <property name="x_padding">30</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="unit_result">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <attributes>
+              <attribute name="size" value="20000"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="right_attach">2</property>
+            <property name="top_attach">4</property>
+            <property name="bottom_attach">5</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="sale_result">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <attributes>
+              <attribute name="size" value="20000"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="right_attach">2</property>
+            <property name="top_attach">6</property>
+            <property name="bottom_attach">7</property>
           </packing>
         </child>
         <child>
           <object class="GtkLabel" id="label5">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Total Payment</property>
+            <property name="label" translatable="yes">Break Even Point Units</property>
           </object>
           <packing>
-            <property name="top_attach">6</property>
-            <property name="bottom_attach">7</property>
+            <property name="top_attach">4</property>
+            <property name="bottom_attach">5</property>
           </packing>
         </child>
         <child>
           <object class="GtkLabel" id="label6">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Total Interest</property>
+            <property name="label" translatable="yes">Break Even Point Sales</property>
           </object>
           <packing>
-            <property name="top_attach">7</property>
-            <property name="bottom_attach">8</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label7">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Annual Payment</property>
-          </object>
-          <packing>
-            <property name="top_attach">8</property>
-            <property name="bottom_attach">9</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label8">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-          </object>
-          <packing>
-            <property name="left_attach">1</property>
-            <property name="right_attach">2</property>
             <property name="top_attach">6</property>
             <property name="bottom_attach">7</property>
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="label9">
+          <object class="GtkImage" id="image1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="stock">gtk-apply</property>
           </object>
           <packing>
-            <property name="left_attach">1</property>
             <property name="right_attach">2</property>
-            <property name="top_attach">7</property>
-            <property name="bottom_attach">8</property>
+            <property name="top_attach">5</property>
+            <property name="bottom_attach">6</property>
           </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label10">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-          </object>
-          <packing>
-            <property name="left_attach">1</property>
-            <property name="right_attach">2</property>
-            <property name="top_attach">8</property>
-            <property name="bottom_attach">9</property>
-          </packing>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
         </child>
       </object>
     </child>
