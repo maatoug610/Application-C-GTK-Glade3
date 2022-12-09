@@ -29,13 +29,30 @@ GtkWidget *priceB_input;
 GtkWidget *unit_result;
 GtkWidget *sale_result;
 
+//Price Quantity var
+GtkWidget *price1_input;
+GtkWidget *quantity1_input;
+GtkWidget *price2_input;
+GtkWidget *quantity2_input;
+GtkWidget *result_less;
+GtkWidget *result_item1;
+GtkWidget *result_item2;
+
+//Vat var
+GtkWidget *netPrice_input;
+GtkWidget *vat_input;
+GtkWidget *result_gross;
+GtkWidget *result_tax;
+
+
 //Windows var
 GtkBuilder *builder;
 GtkWidget *window;
 GtkWidget *windowTip;
 GtkWidget *bmi_window;
 GtkWidget *break_window;
-
+GtkWidget *priceQ_window;
+GtkWidget *vat_window;
 
 void discount_calculate(){
 
@@ -152,6 +169,72 @@ void breakCalculator(){
     gtk_label_set_text(GTK_LABEL(sale_result),s_result);
 }
 
+void priceQCalculator(){
+
+
+    char *price1;
+    char *quantity1;
+    char *price2;
+    char *quantity2;
+    char result[20];
+    char itm1[20];
+    char itm2[20];
+
+   price1 = gtk_entry_get_text(price1_input);
+   quantity1 = gtk_entry_get_text(quantity1_input);
+   price2 = gtk_entry_get_text(price2_input);
+   quantity2 = gtk_entry_get_text(quantity2_input);
+
+    //Operation
+    float p1 = strtof(price1,NULL);
+    float p2 = strtof(price2,NULL);
+    float q1 = strtof(quantity1,NULL);
+    float q2 = strtof(quantity2,NULL);
+
+    float difference = (1- ((p1/q1) / (p2/q2))) *100;
+    gcvt(p1/q1,6,itm1);
+    gcvt(p2/q2,6,itm2);
+      if(difference > 0){
+          gcvt(difference,6,result);
+          printf("Difference: Item 1 is %g %% Less\n", difference);     //check for "Less"
+      }else{
+          gcvt(-difference,6,result);
+          printf("Difference: Item 2 is %g %% Less\n", -difference);
+      }
+
+
+    gtk_label_set_text(GTK_LABEL(result_item1),itm1);
+    gtk_label_set_text(GTK_LABEL(result_item2),itm2);
+    gtk_label_set_text(GTK_LABEL(result_less),result);
+
+    printf("%s",itm1);
+}
+
+void vatCalculator(){
+    char *price;
+    char *vat;
+    char Gross[20];
+    char Tax[20];
+
+
+       price = gtk_entry_get_text(netPrice_input);
+       vat = gtk_entry_get_text(vat_input);
+
+       //Operation
+       float p = strtof(price,NULL);
+       float v = strtof(vat,NULL);
+       float G = (p * v / 100) + p;
+       float T = p * v / 100;
+
+       gcvt(G,6,Gross);
+       gcvt(T,6,Tax);
+
+       gtk_label_set_text(GTK_LABEL(result_gross),Gross);
+       gtk_label_set_text(GTK_LABEL(result_tax),Tax);
+
+
+}
+
 //open discount_app:
 void open_discount_app(){
 
@@ -235,8 +318,8 @@ void open_break_app(){
     gtk_builder_connect_signals(builder, NULL);
 
      /*Event Handler on Button*/
-    GtkWidget *g_btn_cal_break;
-    g_btn_cal_break = GTK_WIDGET(gtk_builder_get_object(builder, "cal_break_btn"));
+    GtkWidget *g_btn_cal_priceQ;
+    g_btn_cal_priceQ = GTK_WIDGET(gtk_builder_get_object(builder, "cal_break_btn"));
     totalB_input = GTK_WIDGET(gtk_builder_get_object(builder, "totalB_input"));
     costB_input = GTK_WIDGET(gtk_builder_get_object(builder, "costB_input"));
     priceB_input = GTK_WIDGET(gtk_builder_get_object(builder, "priceB_input"));
@@ -244,12 +327,64 @@ void open_break_app(){
     sale_result = GTK_WIDGET(gtk_builder_get_object(builder, "sale_result"));
 
 
-    g_signal_connect(G_OBJECT(g_btn_cal_break), "clicked", G_CALLBACK(breakCalculator), NULL);
+    g_signal_connect(G_OBJECT(g_btn_cal_priceQ), "clicked", G_CALLBACK(breakCalculator), NULL);
 
     gtk_widget_show_all (break_window);
     gtk_main ();
 }
 
+//open Price Quantity
+void open_priceQ_app(){
+
+    builder = gtk_builder_new();
+    gtk_builder_add_from_file(builder, "priceQuantityUI.glade", NULL);
+    priceQ_window = GTK_WIDGET(gtk_builder_get_object(builder, "priceQ_window"));
+    gtk_builder_connect_signals(builder, NULL);
+
+     /*Event Handler on Button*/
+    GtkWidget *g_btn_cal_break;
+    g_btn_cal_break = GTK_WIDGET(gtk_builder_get_object(builder, "cal_priceQ_btn"));
+
+    price1_input = GTK_WIDGET(gtk_builder_get_object(builder, "price1_input"));
+    quantity1_input = GTK_WIDGET(gtk_builder_get_object(builder, "quantity1_input"));
+    price2_input = GTK_WIDGET(gtk_builder_get_object(builder, "price2_input"));
+    quantity2_input = GTK_WIDGET(gtk_builder_get_object(builder, "quantity2_input"));
+    result_less = GTK_WIDGET(gtk_builder_get_object(builder, "result_less"));
+    result_item1 = GTK_WIDGET(gtk_builder_get_object(builder, "result_item1"));
+    result_item2 = GTK_WIDGET(gtk_builder_get_object(builder, "result_item2"));
+
+
+    g_signal_connect(G_OBJECT(g_btn_cal_break), "clicked", G_CALLBACK(priceQCalculator), NULL);
+
+    gtk_widget_show_all (priceQ_window);
+    gtk_main ();
+}
+
+//open VAT:
+void open_vat_app(){
+
+    builder = gtk_builder_new();
+    gtk_builder_add_from_file(builder, "vatUI.glade", NULL);
+    vat_window = GTK_WIDGET(gtk_builder_get_object(builder, "vat_window"));
+    gtk_builder_connect_signals(builder, NULL);
+
+    /*Event Handler on Button*/
+    GtkWidget *g_btn_cal_vat;
+    g_btn_cal_vat = GTK_WIDGET(gtk_builder_get_object(builder, "cal_vat_btn"));
+
+    netPrice_input = GTK_WIDGET(gtk_builder_get_object(builder, "netPrice_input"));
+    vat_input = GTK_WIDGET(gtk_builder_get_object(builder, "vat_input"));
+    result_gross = GTK_WIDGET(gtk_builder_get_object(builder, "result_gross"));
+    result_tax = GTK_WIDGET(gtk_builder_get_object(builder, "result_tax"));
+
+
+    g_signal_connect(G_OBJECT(g_btn_cal_vat), "clicked", G_CALLBACK(vatCalculator), NULL);
+
+   gtk_widget_show_all (vat_window);
+   gtk_main ();
+}
+
+/**MAIN**/
 int main (int argc, char *argv[])
 {
 
@@ -282,10 +417,20 @@ int main (int argc, char *argv[])
   g_signal_connect(G_OBJECT(g_btn_bmi), "clicked", G_CALLBACK(open_bmi_app), NULL);
 
 
-  /*Open BMI App btn*/
+  /*Open Break App btn*/
   GtkWidget *g_btn_break;
   g_btn_break = GTK_WIDGET(gtk_builder_get_object(builder, "btn_break"));
   g_signal_connect(G_OBJECT(g_btn_break), "clicked", G_CALLBACK(open_break_app), NULL);
+
+  /*Open PriceQuantity App btn*/
+  GtkWidget *g_btn_priceQ;
+  g_btn_priceQ = GTK_WIDGET(gtk_builder_get_object(builder, "btn_priceQ"));
+  g_signal_connect(G_OBJECT(g_btn_priceQ), "clicked", G_CALLBACK(open_priceQ_app), NULL);
+
+  /*Open VAT App btn*/
+  GtkWidget *g_btn_vat;
+  g_btn_vat = GTK_WIDGET(gtk_builder_get_object(builder, "btn_vat"));
+  g_signal_connect(G_OBJECT(g_btn_vat), "clicked", G_CALLBACK(open_vat_app), NULL);
 
   /* Enter the main loop */
   gtk_widget_show_all (window);

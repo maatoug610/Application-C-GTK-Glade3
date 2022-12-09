@@ -2,42 +2,38 @@
 <interface>
   <requires lib="gtk+" version="2.24"/>
   <!-- interface-naming-policy project-wide -->
-  <object class="GtkWindow" id="break_window">
+  <object class="GtkWindow" id="vat_window">
     <property name="width_request">500</property>
     <property name="height_request">400</property>
     <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Break even app</property>
+    <property name="title" translatable="yes">Vat app</property>
     <property name="resizable">False</property>
     <property name="window_position">center</property>
     <child>
       <object class="GtkTable" id="table1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="n_rows">8</property>
+        <property name="n_rows">6</property>
         <property name="n_columns">2</property>
         <child>
           <object class="GtkLabel" id="label1">
-            <property name="width_request">0</property>
-            <property name="height_request">0</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Break Even Point Calculator</property>
+            <property name="label" translatable="yes">Vat Calculator</property>
             <attributes>
               <attribute name="size" value="20000"/>
-              <attribute name="foreground" value="#ffff18180000"/>
+              <attribute name="foreground" value="#ffff12120000"/>
             </attributes>
           </object>
           <packing>
             <property name="right_attach">2</property>
-            <property name="x_padding">9</property>
-            <property name="y_padding">7</property>
           </packing>
         </child>
         <child>
           <object class="GtkLabel" id="label2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Total Fixed Costs</property>
+            <property name="label" translatable="yes">Net Price :</property>
           </object>
           <packing>
             <property name="top_attach">1</property>
@@ -48,7 +44,7 @@
           <object class="GtkLabel" id="label3">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Costs per Unit</property>
+            <property name="label" translatable="yes">VAT :</property>
           </object>
           <packing>
             <property name="top_attach">2</property>
@@ -59,7 +55,7 @@
           <object class="GtkLabel" id="label4">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Sale Price per Unit</property>
+            <property name="label" translatable="yes">Gross Price :</property>
           </object>
           <packing>
             <property name="top_attach">3</property>
@@ -67,7 +63,18 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="cal_break_btn">
+          <object class="GtkLabel" id="label5">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Tax Amount : </property>
+          </object>
+          <packing>
+            <property name="top_attach">4</property>
+            <property name="bottom_attach">5</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="cal_vat_btn">
             <property name="label" translatable="yes">Calculate</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -75,14 +82,14 @@
           </object>
           <packing>
             <property name="right_attach">2</property>
-            <property name="top_attach">7</property>
-            <property name="bottom_attach">8</property>
-            <property name="x_padding">5</property>
-            <property name="y_padding">7</property>
+            <property name="top_attach">5</property>
+            <property name="bottom_attach">6</property>
+            <property name="x_padding">10</property>
+            <property name="y_padding">10</property>
           </packing>
         </child>
         <child>
-          <object class="GtkEntry" id="totalB_input">
+          <object class="GtkEntry" id="netPrice_input">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="invisible_char">●</property>
@@ -96,12 +103,12 @@
             <property name="right_attach">2</property>
             <property name="top_attach">1</property>
             <property name="bottom_attach">2</property>
-            <property name="x_padding">30</property>
+            <property name="x_padding">10</property>
             <property name="y_padding">10</property>
           </packing>
         </child>
         <child>
-          <object class="GtkEntry" id="costB_input">
+          <object class="GtkEntry" id="vat_input">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="invisible_char">●</property>
@@ -115,35 +122,33 @@
             <property name="right_attach">2</property>
             <property name="top_attach">2</property>
             <property name="bottom_attach">3</property>
-            <property name="x_padding">30</property>
+            <property name="x_padding">10</property>
             <property name="y_padding">10</property>
           </packing>
         </child>
         <child>
-          <object class="GtkEntry" id="priceB_input">
+          <object class="GtkLabel" id="result_gross">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="invisible_char">●</property>
-            <property name="primary_icon_activatable">False</property>
-            <property name="secondary_icon_activatable">False</property>
-            <property name="primary_icon_sensitive">True</property>
-            <property name="secondary_icon_sensitive">True</property>
+            <property name="can_focus">False</property>
+            <attributes>
+              <attribute name="size" value="15000"/>
+              <attribute name="foreground" value="#0eb8aede2372"/>
+            </attributes>
           </object>
           <packing>
             <property name="left_attach">1</property>
             <property name="right_attach">2</property>
             <property name="top_attach">3</property>
             <property name="bottom_attach">4</property>
-            <property name="x_padding">30</property>
-            <property name="y_padding">10</property>
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="unit_result">
+          <object class="GtkLabel" id="result_tax">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <attributes>
-              <attribute name="size" value="20000"/>
+              <attribute name="size" value="15000"/>
+              <attribute name="foreground" value="#0a86bd740e08"/>
             </attributes>
           </object>
           <packing>
@@ -151,57 +156,6 @@
             <property name="right_attach">2</property>
             <property name="top_attach">4</property>
             <property name="bottom_attach">5</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="sale_result">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <attributes>
-              <attribute name="size" value="20000"/>
-            </attributes>
-          </object>
-          <packing>
-            <property name="left_attach">1</property>
-            <property name="right_attach">2</property>
-            <property name="top_attach">6</property>
-            <property name="bottom_attach">7</property>
-            <property name="x_padding">1</property>
-            <property name="y_padding">5</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label5">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Break Even Point Units</property>
-          </object>
-          <packing>
-            <property name="top_attach">4</property>
-            <property name="bottom_attach">5</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label6">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Break Even Point Sales</property>
-          </object>
-          <packing>
-            <property name="top_attach">6</property>
-            <property name="bottom_attach">7</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkImage" id="image1">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="stock">gtk-apply</property>
-          </object>
-          <packing>
-            <property name="right_attach">2</property>
-            <property name="top_attach">5</property>
-            <property name="bottom_attach">6</property>
           </packing>
         </child>
       </object>

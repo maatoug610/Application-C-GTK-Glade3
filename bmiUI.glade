@@ -14,34 +14,10 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="n_rows">5</property>
-        <property name="n_columns">4</property>
+        <property name="n_columns">3</property>
         <property name="column_spacing">8</property>
         <property name="row_spacing">8</property>
         <property name="homogeneous">True</property>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
         <child>
           <object class="GtkButton" id="cal_bmi_btn">
             <property name="label" translatable="yes">Calculate</property>
@@ -54,64 +30,9 @@
             <property name="right_attach">3</property>
             <property name="top_attach">4</property>
             <property name="bottom_attach">5</property>
+            <property name="x_padding">5</property>
+            <property name="y_padding">5</property>
           </packing>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
         </child>
         <child>
           <object class="GtkLabel" id="label4">
@@ -127,18 +48,6 @@
             <property name="left_attach">1</property>
             <property name="right_attach">3</property>
           </packing>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
         </child>
         <child>
           <object class="GtkLabel" id="result_bmi">
@@ -258,8 +167,6 @@
             <property name="pixbuf">doctor.jpg</property>
           </object>
           <packing>
-            <property name="left_attach">3</property>
-            <property name="right_attach">4</property>
             <property name="bottom_attach">5</property>
           </packing>
         </child>

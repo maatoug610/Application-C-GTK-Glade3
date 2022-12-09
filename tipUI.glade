@@ -34,6 +34,30 @@
           <placeholder/>
         </child>
         <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
           <object class="GtkEntry" id="bill_input">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -122,6 +146,7 @@
             <property name="right_attach">3</property>
             <property name="top_attach">6</property>
             <property name="bottom_attach">7</property>
+            <property name="y_padding">5</property>
           </packing>
         </child>
         <child>
@@ -166,9 +191,6 @@
             <property name="top_attach">1</property>
             <property name="bottom_attach">2</property>
           </packing>
-        </child>
-        <child>
-          <placeholder/>
         </child>
         <child>
           <placeholder/>

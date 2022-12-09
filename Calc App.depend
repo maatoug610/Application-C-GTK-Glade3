@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1670501060 source:e:\a1er ing tek up\programation c\projet c\calc app\main.c
+1670534653 source:e:\a1er ing tek up\programation c\projet c\calc app\main.c
 	<stdlib.h>
 	<gtk/gtk.h>
 	<string.h>
