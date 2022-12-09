@@ -1,8 +1,9 @@
 # depslib dependency file v1.0
-1670534653 source:e:\a1er ing tek up\programation c\projet c\calc app\main.c
+1670624143 source:e:\a1er ing tek up\programation c\projet c\calc app\main.c
 	<stdlib.h>
 	<gtk/gtk.h>
 	<string.h>
+	<math.h>
 
 1366450856 c:\gtk 3.0\include\gtk-3.0\gtk\gtk.h
 	<gdk/gdk.h>

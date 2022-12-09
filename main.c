@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <gtk/gtk.h>
 #include <string.h>
+#include <math.h>
 
 /*==Global var==*/
 
@@ -44,6 +45,16 @@ GtkWidget *vat_input;
 GtkWidget *result_gross;
 GtkWidget *result_tax;
 
+//Loan var
+GtkWidget *loan_input;
+GtkWidget *interestR_input;
+GtkWidget *lMonth_input;
+GtkWidget *lYears_input;
+GtkWidget *result_monthly;
+GtkWidget *result_totalp;
+GtkWidget *result_totali;
+GtkWidget *result_annual;
+GtkWidget *result_mortgage;
 
 //Windows var
 GtkBuilder *builder;
@@ -53,6 +64,7 @@ GtkWidget *bmi_window;
 GtkWidget *break_window;
 GtkWidget *priceQ_window;
 GtkWidget *vat_window;
+GtkWidget *loan_window;
 
 void discount_calculate(){
 
@@ -126,15 +138,17 @@ void bmiCalculator(){
     if(b < 18.5){
         printf("Underweight");
         strcpy(bmi_ch,"Underweight");
-    }else if('s'>18.5 && b<24.9){
+    }else if(b>18.5 && b<24.9){
         printf("Normal");
         strcpy(bmi_ch,"Normal");
-    }else if('tr'>25.0 && b<29.9){
+    }else if(b>25.0 && b<29.9){
         printf("Overweight");
         strcpy(bmi_ch,"Overweight");
-    }else{
+    }else if(b >= 30){
         printf("Obese");
         strcpy(bmi_ch,"Obese");
+    }else{
+        strcpy(bmi_ch,"None");
     }
 
     gtk_label_set_text(GTK_LABEL(bmi),bmi_ch);
@@ -232,7 +246,57 @@ void vatCalculator(){
        gtk_label_set_text(GTK_LABEL(result_gross),Gross);
        gtk_label_set_text(GTK_LABEL(result_tax),Tax);
 
+}
 
+void loanCalculator(){
+
+    char *loan;
+    char *interestR;
+    char *lMonth;
+    char *lYears;
+    char monthlyPay[50];
+    char totalPay[50];
+    char annualPay[50];
+    char totalInterest[50];
+    char mortgageConstant[50];
+
+    loan = gtk_entry_get_text(loan_input);
+    interestR = gtk_entry_get_text(interestR_input);
+    lMonth = gtk_entry_get_text(lMonth_input);
+    lYears = gtk_entry_get_text(lYears_input);
+
+    //Operation :):
+    float l = strtof(loan,NULL);
+    float i = strtof(interestR,NULL);
+    float m = strtof(lMonth,NULL);
+    float y = strtof(lYears,NULL);
+
+    float months = m + y *12;
+	i = i /100;
+	float var = 1+(i/12);
+
+	//monthly Pay:
+    float monthP = l *( ((i/12) * powf(var,months))/(powf(var,months) -1) );
+    float tPay = monthP * months;
+    float aPay = monthP * 12;
+    float tInterest = tPay - l;
+    float mConstant = (aPay / l) *100;
+
+
+
+    gcvt(monthP,6,monthlyPay);
+    gcvt(tPay,6,totalPay);
+    gcvt(aPay,6,annualPay);
+    gcvt(tInterest,6,totalInterest);
+    gcvt(mConstant,6,mortgageConstant);
+
+    printf("%s",totalPay);
+
+    gtk_label_set_text(GTK_LABEL(result_monthly),monthlyPay);
+    gtk_label_set_text(GTK_LABEL(result_totalp),totalPay);
+    gtk_label_set_text(GTK_LABEL(result_totali),annualPay);
+    gtk_label_set_text(GTK_LABEL(result_annual),totalInterest);
+    gtk_label_set_text(GTK_LABEL(result_mortgage),mortgageConstant);
 }
 
 //open discount_app:
@@ -384,6 +448,35 @@ void open_vat_app(){
    gtk_main ();
 }
 
+//open LOAN
+void open_loan_app(){
+
+    builder = gtk_builder_new();
+    gtk_builder_add_from_file(builder, "loanUI.glade", NULL);
+    loan_window = GTK_WIDGET(gtk_builder_get_object(builder, "loan_window"));
+    gtk_builder_connect_signals(builder, NULL);
+
+    /*Event Handler on Button*/
+    GtkWidget *g_btn_cal_loan;
+    g_btn_cal_loan = GTK_WIDGET(gtk_builder_get_object(builder, "cal_loan_btn"));
+
+    loan_input = GTK_WIDGET(gtk_builder_get_object(builder, "loan_input"));
+    interestR_input = GTK_WIDGET(gtk_builder_get_object(builder, "interestR_input"));
+    lMonth_input = GTK_WIDGET(gtk_builder_get_object(builder, "lMonth_input"));
+    lYears_input = GTK_WIDGET(gtk_builder_get_object(builder, "lYears_input"));
+    result_monthly = GTK_WIDGET(gtk_builder_get_object(builder, "result_monthly"));
+    result_totalp = GTK_WIDGET(gtk_builder_get_object(builder, "result_totalp"));
+    result_totali = GTK_WIDGET(gtk_builder_get_object(builder, "result_totali"));
+    result_annual = GTK_WIDGET(gtk_builder_get_object(builder, "result_annual"));
+    result_mortgage = GTK_WIDGET(gtk_builder_get_object(builder, "result_mortgage"));
+
+
+    g_signal_connect(G_OBJECT(g_btn_cal_loan), "clicked", G_CALLBACK(loanCalculator), NULL);
+
+
+   gtk_widget_show_all (loan_window);
+   gtk_main ();
+}
 /**MAIN**/
 int main (int argc, char *argv[])
 {
@@ -431,6 +524,12 @@ int main (int argc, char *argv[])
   GtkWidget *g_btn_vat;
   g_btn_vat = GTK_WIDGET(gtk_builder_get_object(builder, "btn_vat"));
   g_signal_connect(G_OBJECT(g_btn_vat), "clicked", G_CALLBACK(open_vat_app), NULL);
+
+
+  /*Open LOAN App btn*/
+  GtkWidget *g_btn_loan;
+  g_btn_loan = GTK_WIDGET(gtk_builder_get_object(builder, "btn_loan"));
+  g_signal_connect(G_OBJECT(g_btn_loan), "clicked", G_CALLBACK(open_loan_app), NULL);
 
   /* Enter the main loop */
   gtk_widget_show_all (window);
